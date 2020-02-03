@@ -13,3 +13,5 @@ datacenter     ->  xbet-数据中心,给接入方提供查询数据
 gateway        ->  商户-网关，提供给接入方使用
 netty          ->  xbet-websocket广播数据
 oauth2         ->  商户-oauth2权限认证
+
+项目需要依赖consul和rabbitmq
