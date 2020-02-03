@@ -1,0 +1,62 @@
+server:
+  port: 9200
+pandora:
+  tenantId: 2
+  encrypt:
+    #dev
+    privatekey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDop2sdYJQ4yCEgQu5Lp32Ou82zBTs6ty62qgMy4oF21hyZQq7iKmuZZY4gBsz5GShgncTqpLD0TxiZqOYpARyLGibsQPZ3wIJnPPlbtCuFEDZdEhfLo08aGv01TgnhIcoE7OwxR3dV9jeJN77qw8ZJzSR2UlAZ0y3QvNxPWqJBoWap5d8UAU2jQrx2d+uj7EVUTVtRsCE4QPeUz385e0c1VOu8qDYz/j/rDrS2BlsmeDXq9ZFobmvoO+pZ2lHjFTRCeaLCVKnpX8d4+mZK3bTpXm9Fdu8Nx9jZrC3vykirqUPnnZ7TB+pBvRt3Vz9SEpk1yXD/8lNyBN624IJLSXdDAgMBAAECggEAfJJgLUuwMbMe4ZpU49dbyFhQrMFpVGgPMClaKx3S+mFs0Lc+0sSp9mnFLurVR6+rygfQD199jGLppiUkj+ITeXvYSXoDPl2qtUKVtf+DqezjXvQ4H4Zi7XR0Dd2qNoyUEg0V7tD4WePLGsLpi+SlwJCCLISodRt5FaJ6SFccOA0BZKz9JX4hlEOVkjKgFIoovM9G9F+rvGheoDdEpyRRXBVI9G5HhRW5cqB0sNK6A9gXi/Uv3jeno4W4QO5FboR+S0snyoPOMmQwkhYpJAWblIldEUfmuagnmp0a6sXQd2t5Wfr7A4P8JtS+u507r6Biquikob+XJApidIPKniUiKQKBgQD7xc05fWcbXv5z77aM4Te+ZOviQhNGuwz0ngArSBcOVUiA4CgfBQrle6KnZyomUmhGAq6TPjU2iQTtDlZxUY8dUvZ2ENpuRhNmS8i7Rh+hSrNUVCSK1v1n4+asiSfYYyJws6bCgw7pa0YcszWuGNvef1gctchLxDCs+rHne5stdwKBgQDsj3BJam1Z/J5D1G1a8aQ6MiPdm4wD3DlSg+jN2hzCyG+nxaKXKZnx/FE3rV4z62nt6HYuItCd1u+GsLRlTuzlhqVuyo/MzlSjX0r9Cdf/81h1oEVmAS2puCSNY1TqtE7g/r/0wWDegAI+fPVPyvWJRwa9n7q2KBKcAbge2YRHlQKBgQD1DLnJqdewGU5aM0efaRmjc4DvMFaosihS8nHBrqHaLoGqBgKm5naLk0Fl5BBvSif5dGTMJXEPil9EB391Peeop/YARjkDuarqFvrh48enahiPDHKgu83az0PWTIx+nUaJISI/EeZypBmSl464y7M8pP9yui+gJu0lf7+mSXVo0wKBgF+kitCUAAxO76oa+++2HSEOXqPdnNl+s4piHMEFu3UhVsttQ5R8VGqbCjdJl/nD53sx7n4uw0vdt9AsJ3OCWpNeQgquST+T+HJpN8dgsH0iZRSBrS1VsqGY+uZTT+To669aMEAD42dyN/YNzZzqQSW0mswWBYZaY1PB+jA2352VAoGARurIZOma2sXn1bJHmELHEbTUJFDPpcR+ZHPwgi+dfzJrGssLSN9fJP3h1AZcKtSS6R9NqkMzYSZBRpnoaJHM1Sl++/mYa+w+4PsULz7c5RRb4KF3bqouwRAlkcnuAwyt4MaFI+SAZNH8rF2EFxtoZxKO0EJ8PhrqcHHYjUgHaqw=
+  datacenter:
+    baseurl: http://bapi.stage.risewinter.cn/
+    url: http://api-sta-datacenter.risewinter.cn/api/bet_orders
+    cameoUrl: http://api-sta-datacenter.risewinter.cn/api/cameo_orders
+    apiKey: 7BCGOAUTzc8YhtZSsBYfToB5NfXDtt71ZhMYf5np
+    apiVersion: 1
+spring:
+  datasource:
+    name: planc
+    url: jdbc:mysql://127.0.0.1:3306/planb-dev?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 12345678
+    sql-script-encoding: utf-8
+    platform: mysql
+    continue-on-error: false
+    separator: //
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    max-active: 100
+    max-idle: 10
+    min-idle: 10
+    initial-size: 15
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 10
+        min-idle: 0
+    timeout: 1000
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+      #serialization: false
+  #    serialization: false

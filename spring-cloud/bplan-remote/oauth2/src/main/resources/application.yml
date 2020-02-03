@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: oauth2
+  profiles:
+    active: mytest

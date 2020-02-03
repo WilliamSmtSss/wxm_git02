@@ -1,0 +1,10 @@
+server:
+  port: 9091
+spring:
+  application:
+    name: auth
+logging:
+  config: classpath:logback.xml
+
+
+

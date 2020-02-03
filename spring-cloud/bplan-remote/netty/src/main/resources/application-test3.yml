@@ -1,0 +1,15 @@
+netty:
+  port: 9007
+
+spring:
+  rabbitmq:
+    host: host.xbet
+    username: guest
+    password: guest
+    port: 5672
+    virtual-host: xbet
+    publisher-confirms: true
+server:
+  port: 9103
+rabbitmq:
+  queue: test.queue2.name

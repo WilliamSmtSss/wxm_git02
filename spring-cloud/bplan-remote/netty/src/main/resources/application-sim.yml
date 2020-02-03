@@ -1,0 +1,15 @@
+netty:
+  port: 9003
+
+spring:
+  rabbitmq:
+    host: 200.0.0.5
+    username: sim_xbet_rabbitmq
+    password: simR2TnBSrmq
+    port: 5672
+    virtual-host: sim_xbet
+    publisher-confirms: true
+server:
+  port: 9100
+rabbitmq:
+  queue: xbet.queue.name1

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: bplan
+  profiles:
+    active: mytest
+  main:
+    allow-bean-definition-overriding: true
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+logging:
+  level:
+    root: INFO
+
+
+

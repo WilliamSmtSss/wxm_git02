@@ -1,0 +1,62 @@
+spring:
+#  flyway:
+#    baseline-on-migrate: true
+#    locations: classpath:db
+  datasource:
+    hikari:
+      connection-test-query: SELECT 1
+      minimum-idle: 1
+      maximum-pool-size: 5
+      pool-name: dbcp1
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://xbet-dev.c0ihwn6tazso.ap-east-1.rds.amazonaws.com:3306/open_api?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: xbetdev
+    password: qRlSaAfjZGCpWq1P
+    #    schema[0]: classpath:/auth.sql
+    #    initialization-mode: ALWAYS
+    type: com.zaxxer.hikari.HikariDataSource
+  cloud:
+    consul:
+      host: 200.0.0.5
+      port: 8500
+      discovery:
+        #        healthCheckPath: /health
+        healthCheckInterval: 15s
+        instanceId: ${spring.cloud.consul.discovery.service-name}-${spring.profiles.active}-${spring.cloud.consul.discovery.ip-address}-${random.value}
+        ip-address: ${HOST_ADDRESS:localhost}
+        service-name: auth
+        register: true
+        heartbeat: ##配置是否进行health check，以及频率
+          enabled: true
+          ttlValue: 10
+        enabled: true
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+  main:
+    allow-bean-definition-overriding: true
+
+#ribbon:
+#  ReadTimeout: 10000
+#
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 10000
+#management:
+#  health:
+#    db:
+#      enabled: false
+
+mybatis:
+  mapper-locations: classpath:/mybatis/mapper/*Mapper.xml
+  config-location: classpath:/mybatis/config.xml
+logging:
+  level:
+    root: INFO
+

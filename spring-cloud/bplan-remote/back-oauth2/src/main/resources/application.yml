@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: backoauth2
+  profiles:
+    active: test
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+
+
+

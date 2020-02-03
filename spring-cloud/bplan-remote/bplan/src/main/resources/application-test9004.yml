@@ -1,0 +1,107 @@
+spring:
+  datasource:
+    name: planc
+    url: jdbc:mysql://47.111.19.62:3306/planc?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8
+    username: devuser
+    password: Devuser2!
+    sql-script-encoding: utf-8
+    platform: mysql
+    continue-on-error: false
+    separator: //
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    max-active: 100
+    max-idle: 10
+    min-idle: 10
+    initial-size: 15
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size : 15
+      auto-commit: true
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 10
+        min-idle: 0
+    timeout: 1000
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  #=====consul
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        #        healthCheckPath: /health
+        healthCheckInterval: 15s
+        instanceId: ${spring.cloud.consul.discovery.service-name}-${spring.profiles.active}-${spring.cloud.consul.discovery.ip-address}-${random.value}
+        ip-address: ${HOST_ADDRESS:localhost}
+        service-name: bplan
+        register: true
+        heartbeat: ##配置是否进行health check，以及频率
+          enabled: true
+          ttlValue: 10
+        enabled: true
+    serialization: false
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
+
+server:
+  port: 9004
+  tomcat:
+    uri-encoding: utf-8
+netty:
+  port: 9005
+
+bplan:
+  encrypt:
+    #demo
+    privatekey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2kYPjFQir90Gpd/cUufsecUAMdiUxunODgdkruozwlv6xqrPwEAQVO7AmcWroQvKs47gC9iYXJbzl79bw3sbnvLhrZSWE+3C78R+aLwxjzVM2jTTRVmIX9iWVfNsxQOF3EN5fVLfDQJzkXQwytxDkina8jwWTtAVHMDDqkk6rC0f7JiihTnSjrU5/wxNFjkAVJgiYAhcKkjyF/aHoWiqUL/bGlWVvNvfVMKtlI2PAkerpbtR8E8la9Hm3hJxqKdXgr5vDCT4aMnZ+gS09OjEqmxuEX6eMhxJqixLo4nPT4UcbHJGVY/wdDobb67rPBDBnzgSQqr8dKrMMeFsuefH3AgMBAAECggEBAKatuYRDutQNfGQ1Q14n4c1MRdZasuBwwm9oyBX1TiGFKWiZWYgthxy/jrW6TIlaPeZ8TI5fniz55jjjPBBSw7Pkh1Z9VMDRMn5TyK9ijuQ7G+KtDnCkdhA8SNnu0Mtp2a5ztyG/3bmkLtkK3k0a95A/neHOjZ/o9fylUbOG+c2LhVzitQNk8Z5UFMXUJ0+lRikluD6kopI7Eclo7L75jvy3WGHnZVu7w+t+H2lKQICab2DqG0LqTlvIDhUcVFtEAk3FC9KP3xciN9G3SInCSFqMVPKsdaJ+7TLggq9RALFfpM6w/O6JhnrIFLgEeZZncmX35na4YwoQHwjFkvlpUZkCgYEA7x3npc+NydYoz+M4kE3/uOSUG+EqBmHDW+eEie3ynO/mWUrzVTJCx7OteuCBpnoVpoBhdZ1V6BCThNn3te4jc1AhkiANZHrdKo5CRZ4MBZ4YtvqbdnvYqPKCb9k4LRjs6aT040WMp9iPTxvAbg/HCuaCiuOZGz2potV1zL1zolMCgYEAw3V78XeXIpAwkvyH/axS9VO2+bccGzlJ4LlUtCaeNT2tZlF1yIhsUa2Y3GUvinEz9rJ1Ke5huy9nos04udXCCEd0MUiavros94xRtCiug5kwKAjoInicGdqfNeCA9UKk01obBJdk4akLm8iIbc/3yqkbDp1o8yPq+qNzwGGPhU0CgYBz+FQGFhDVaDmpAbHIQxwYZzvx/ZVtPPML2tBsOOxm8u8MNY6orlS3GEy2ALbAsAtaEn+yFFm60HdLgo9iPBoTbjSp80OrjO9BGXfI3etEujWQYSEPKOeeoOdkKbzWGnWkp61hoLSkHyL6IiKE/r/xaHS9ub7i+FgSsmaMowG3IwKBgCajI7QQ2txnOmLj7pHzrZZ3TPVCABlVksgMerT96UpG/e767ViNtzPSKCRxEBvC0u3SSxzV1ZXmAguJm8wIeEmgrlRLsONA9ECfCUueuxiigIV5dUHTK7BkqhJBZdyVpvVsm2il8Lg27WeHFYj3klkKYqHZ9fQSRpHzG5+M6Y0FAoGAf2jc840TTNhYVDTIzx10ZR6HJFanra0rROb/sEMt/L6XbDdv+O8hI0zKOt7x/gTMNh6Lb63clfcPfj75dh7to9oxLemak5cdV3dcNVGc1WI3LF+YOUplL18Ze0FyKCNQuDexu632lnFzjWKN3qcF2BkjxKXk8DCnCtmaXTUDK0c=
+    #test
+    #privatekey: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDIm5HMzuOll+zD4O2HGsReN9txNQWEr3riO8YXk9TXbJpMVX/OWERLqTqS+Zpwsh3mVLmaJrbKEqIp5NDE7tcd011Jva5ULWmatbYpaSQrkH+Jao/SL6T8K9D/FGdVOk+Ybct6deFAc95EfgA+reGOVgtEaMVzIEy9xTsgE7cnylWuVhT7HZacHeQVooJi1pNEa+rE94DIIqL9F9VoX3vbveVMsOPOA3bGpRWmoJpVmIhXQhHXzq7zNmdVY2TNzTmarEDHZpSOd1rdkin4TxZ4+YukzSaR76sPyX5eN/u7qenfpCBlSTr1KIuxUOyjkwSgqLHatMtcNrZXmpR79r21AgMBAAECggEAOxVGndGZTp4uR4qpqo8BotZEtVTuaSPdx1/fefY6S7BayXytBbMNelM/QyZsjCCJmdr+Rx5724wdYsVXj4jgppIn+Z36CCTP45b9LbkfxAzs4yYVccxChVrKVTZHMNzZsIU11r19OCRoJDgQDmXb9rX035MUBFJRB9tdDJeB7B+vvlNy1sMeEYJ4iolWqUxsXS8eDcLw7fZ/bohR05P16Xv9uA1x80H8u+2Ln9XADoQ0n5dkaoTF0Vt6s0OK0a3hweTC44+Sdx+aKxYQFskOF1edyT4mD/MwOrLQmzc2egi8bD02BO1CJo1ulM2Adpb0S+OBGO7/ogNa4qCPYtvzAQKBgQDz9hDE2ZhTsPQiG3sPN+h+fvPZpHGdHnmIrwLD9wesaVoMw0wTqfkzF10cK7xXv2BDidIp9BoHd/3Gvdi6Dv29knqjbfrFw4uwed2tc4SQpvX4TikSCq8p27d8NJd24CSPb8XdbORY79UkaaU7S4xyD7NwEbhWRZgisCW76eSVoQKBgQDSgdL4uc4yOcBzJ+LWoXxX3DVdYH1rHiSI+7kgCIQdd2eYtxUM0ob9EwOmb6csONh+5YW1uv/ZqpQ4TzPmcEj0EGIleaTPr3BiH8vJdWriwuXuap2d+8NTyvYjnHWauYZ84Ykwqmr+/UtFgnNcnpC7v+J9fR8KGLp4Tmq2hOxHlQKBgCW7MOzBGqYXACsmROodo3+s8tn+bPP3+qQBLVRRqIYp5RuEOQfxifE089mfigmoN6M6dZ63ei8dh8ptIk/kcaoYNY+BOv/LNpecwYRKEX6t0+0LaZ64uE6pBL/ZAnQIRp9Ikjmk1cxLi5OOI1gAX0Bk3UO/+dqd+OGkjLF7gzcBAoGAF7YT43xaY4Hp0Y7OmEp8TRE62ZfCyMwOZXelNJyA9Si7/JGyx0z3c44uvRKai/qjODf2RbAYnZX/OBCD0hMXxJYL2BjJnbMvP35BYCHftkcpyx8rPd5b9BZKf1xiStlW8r4cy+SGRM6XKe81u1sJBnzosCXl1ydN6bs7fe+fBbkCgYAonhwiMeEvCTSPBCOOB8aB4jXzrIkQi8kepa2NFf1vwCe+Oi7CgZct+Uc2MuD42o8oziedHue3WMZD/9VnVR9czVQneuoplzI9ewIPTm+m2+qdUbGmRQOqRb2k2LgtgsNMaaQLSImbSzrHSi7usNA2sk/xtTHhhvGdjvUcQ4mLGg==
+  datacenter:
+    #url: http://api-sta-datacenter.risewinter.cn/api/bet_orders
+    #cameoUrl: http://api-sta-datacenter.risewinter.cn/api/cameo_orders
+    url: http://api-sta-datacenter.risewinter.cn/api/bet_orders
+    cameoUrl: http://api-sta-datacenter.risewinter.cn/api/cameo_orders
+    #apiKey: 7BCGOAUTzc8YhtZSsBYfToB5NfXDtt71ZhMYf5np
+    apiKey: 2VH5PAvZ7pFygUaQB0iSED09ydcI9EP2iF7CADFv
+    apiVersion: 1
+
+  msg:
+    china:
+      url: http://smssh1.253.com/msg
+      account: CN1135550
+      password: lr2kUZcFN3625d
+      open: true #短信开关
+    international:
+      url: http://intapi.253.com/
+      account: CI0314361
+      password: rNvL3p2qHYc563
+      open: true
+
+logging:
+  config: classpath:logback.xml
+

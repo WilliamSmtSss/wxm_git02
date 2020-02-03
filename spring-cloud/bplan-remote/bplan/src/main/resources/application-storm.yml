@@ -1,0 +1,98 @@
+spring:
+  datasource:
+    name: planc
+    url: jdbc:mysql://127.0.0.1:3307/storm_product_db?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    #url: jdbc:mysql://rm-3ns0j7yt1qw20z8qk.mysql.rds.aliyuncs.com:3306/storm_product_db?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    #url: jdbc:mysql://rm-3nst8g3h627285fw0yo.mysql.rds.aliyuncs.com:3306/planb_product_db?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8
+    username: storm_product
+    password: vBQ@r576tIFQB%x2
+    sql-script-encoding: utf-8
+    platform: mysql
+    continue-on-error: false
+    separator: //
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    max-active: 100
+    max-idle: 10
+    min-idle: 10
+    initial-size: 15
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size : 15
+      auto-commit: true
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 10
+        min-idle: 0
+    timeout: 1000
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#    serialization: false
+
+server:
+  port: 9002
+  tomcat:
+    uri-encoding: utf-8
+netty:
+  port: 9003
+
+bplan:
+  encrypt:
+    privatekey: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCieRzXLQYSilP4F73Jz52z2c2OIb4reTitAoI1cr0UWWStPHLZQ8MjcfsAcKeZPdCABhxvBp0UtQrfuTEIhpagDfOdqRTDmTS3Qvf/I6SgIRXurWh4saSp4VK29ojs8azpqhhMM0hvMEkYMiBtyC3TfyeSHACapHPJcp2bC3VyAZCcIo/B+1uwOsbsE2jFP8tijYasV3WxmFawSGyUnxWY8tJ7UjDzFWF//v5t3v+LXZ4eWARA/jOSXjic4hQpQdIkyKgTcJ7NIa0Kkkzd6/IUMgDNL/zu6T/OBgDVfAIEypuJkMTc7TIvKrwzAD8ypLZZBCWYd18eNecO1waQILJLAgMBAAECggEAK6eRGTvOuuKSB0IRy4zOWcm20m68kx/CG7Jl3AiVR0dxpp5sWXY8k2SHxal/TsxuHkgGEcrcH/k5D73Jr/nBtQWqpH0OyDN9F5SV3+bqz9+z7eqH/I32qXKSb/iz975D8JC0cJ0C5GU77pVhYz37Gi27KyX8/5AaUFFMiaE9kEDvuqmhPBCMykRwE5n2hMOfAGEaIHP4A2EmORMTEYOoc86+wyFSehgcN8yYmA5T+bG8FrohRzrHZmWsYYve0M2Rmu8H3fzaYzNiLdao88RLCgvVh26NfkuU8gzsuNpDcN0/tWdmfOVJwPuPOWqOo/TCzka0zyEyXJGqStt7e9734QKBgQDS5uTaerx5/VIva1mUS6qP12CmnR095lTOy8sYl6+vbELK0vd/5VKRROLNSGMwW+mgXawVB0H4c79BexXQ4XmRtBAxkuBResGoevUCb5wUag9i8GiJI4ggmUffJfdC2ni9XxfCGNZKWU3OpppdozSzPHb0QFuRDslhLGDFyl/7MQKBgQDFNyXHsBjSvezRP03iKL/gQmk3Fy2mez6Bpwh0cV/HS9qw0ufj/SohbVPAJb8XQABnDzAziNI/M8XQbbnwjJ06UAAyRmawUy2Qu71ZoagdTp7HC3WiKI1uJx9ZwxKIIxWZcyHT70kCO4XXmKvWVFlk+x8Fu4T+sX5OFIFMBQ8uOwKBgAv0gLaNzI9Rt83uVOaeH24F9HmdYGH444fRb5LWTmQwS9z5doQueK65a+3dE5pTK3wmszGB9tBhp07L7mGn1l9XCK/2tnaH8eBeD/NyZjOWC4c9P3++nuHSLovMuCZ3Ae8iK9OZ2tPeGhYDxa5XKQ6b99ZCq64eW3YBsP6lSSmRAoGAbj7x47tRZR2+8QpOY4scGCWH48AVSOfEfX3+f/mQ7Tw+OHLuJskzcBRJqTRwqnKgxvv6mhR2U9aBUo7ETvCMRDjMo04vwYn+AtawdxajgB6fK+4ACHJa/aTpJaijB291d56g3nT5f0H/BBLYnKvyfTzUjsPRCP/393YHAZQidFkCgYBNuX7qpCcXHNAKecmQkAH76kMTnZ1H9+lG8sV87QOeibMqmVKejiIj+jjXyuAhWbh1EfvxTn3tFGLPvyvqfNLAc+lhktR8DAHA2BU0KtbQzIPp0h4DcOcAkM5Kru8XIuCSqMn9MW9zKka5CEW6iM1HKr2GbI9cmTml2UtqbCF6Rw==
+  datacenter:
+    url: http://api-hk-datacenter.risewinter.cn/api/bet_orders
+    cameoUrl: http://api-hk-datacenter.risewinter.cn/api/cameo_orders
+    apiKey: 4E56PtK91y9NomB6B4HOQ-yAoIspXnSIyan7Sucw
+    apiVersion: 1
+
+  msg:
+    china:
+      url: http://smssh1.253.com/msg
+      account: CN1135550
+      password: lr2kUZcFN3625d
+      open: true #短信开关
+    international:
+      url: http://intapi.253.com/
+      account: CI0314361
+      password: rNvL3p2qHYc563
+      open: true
+
+logging:
+  config: classpath:logback.xml
+
+application:
+  profile: /home/stormback/
+  sessionExpire: 1
+  bannerMax: 6
+as:
+  config:
+    authPwd: 63bvCmaK6D35
+    gciUrl: https://asgci.as1866.com/
+    gameGciUrl: https://asgi.as1866.com/
+    agent: eF01real011
+task:
+  delay: true
+  bonus: false
+
+
+

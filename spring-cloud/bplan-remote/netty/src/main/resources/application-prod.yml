@@ -1,0 +1,16 @@
+netty:
+  port: 9003
+
+spring:
+  rabbitmq:
+    host: 10.6.0.21
+    username: xbet
+    password: tlHoXxCgNSitKnGD
+    port: 5672
+    virtual-host: prod_xbet
+    publisher-confirms: true
+    #addresses: 10.6.0.21:5672 #,10.6.0.22:5672,10.6.0.23:5672
+server:
+  port: 9100
+rabbitmq:
+  queue: xbet.queue.name1

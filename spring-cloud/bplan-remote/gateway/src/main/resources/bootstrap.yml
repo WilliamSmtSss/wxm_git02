@@ -1,0 +1,17 @@
+spring:
+  application:
+      name: gateway
+---
+test:
+  hostport: localhost:9099
+#  hostport: localhost:5000
+  uri: http://${test.hostport}
+
+logging:
+  level:
+    org.springframework.http.server.reactive: info
+    org.springframework.web.reactive: info
+    reactor.ipc.netty: info
+    com.splan.gateway: info
+
+management.endpoints.web.exposure.include: '*'

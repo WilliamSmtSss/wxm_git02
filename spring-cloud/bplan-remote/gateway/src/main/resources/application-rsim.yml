@@ -1,0 +1,80 @@
+spring:
+  redis:
+    host: r-jp-sim-redis.dowypr.ng.0001.apne1.cache.amazonaws.com
+    port: 6379
+  cloud:
+    consul:
+      host: ${CONSUL_ADDRESS:10.0.0.10}
+      port: ${CONSUL_PORT:8500}
+      discovery:
+        port: ${SERVER_PORT:${server.port}}
+        #        healthCheckPath: /health
+        healthCheckInterval: 15s
+        instanceId: ${spring.cloud.consul.discovery.service-name}-${spring.profiles.active}-${spring.cloud.consul.discovery.ip-address}
+        ip-address: ${spring.cloud.consul.discovery.ip-address}
+        service-name: gateway-server
+    gateway:
+      loadbalancer:
+        use404: true
+      discovery:
+        locator:
+          enabled: true
+      default-filters:
+        - AddRequestHeader=X-Request-Foo, Bar
+        - name: RequestRateLimiter
+          args:
+            key-resolver: "#{@remoteAddrKeyResolver}"
+            rate-limiter: "#{@customRateLimiter}"   # token
+
+      routes:
+        - id: ingredients-fallback
+          uri: http://localhost:9099
+          predicates:
+            - Path=/fallbackcontroller
+          filters:
+            - name: FallbackHeaders
+              args:
+                executionExceptionTypeHeaderName: X-Exception-Header
+                executionExceptionMessageHeaderName: X-Exception-Message
+                rootCauseExceptionTypeHeaderName: X-Root-Exception-Header
+                rootCauseExceptionMessageHeaderName: X-Root-Exception-Message
+        # =====================================
+        - id: open_api
+          uri: lb://bplan-service #http://localhost:9002/openapi
+          predicates:
+            - Path=/openapi/**
+          filters:
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallbackcontroller
+            - StripPrefix=1
+        # =====================================
+        - id: datacenter
+          uri: lb://datacenter-service #http://localhost:9002/openapi
+          predicates:
+            - Path=/datacenter/**
+          filters:
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallbackcontroller
+            - StripPrefix=1
+        # ========oauth
+        - id: service_to_auth
+          uri: lb://auth
+          order: 9000
+          predicates:
+            - Path=/login/**
+          filters:
+            - StripPrefix=1
+        # =====================================
+        - id: default_path_to_error
+          uri: http://localhost:9099/error
+          order: 10000
+          predicates:
+            - Path=/**
+          filters:
+            - AddRequestParameter=foo, bar
+server:
+  port: 9099

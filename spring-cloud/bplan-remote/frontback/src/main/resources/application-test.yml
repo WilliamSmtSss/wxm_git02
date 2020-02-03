@@ -1,0 +1,111 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    name: planc
+    #url: jdbc:mysql://rm-3nst8g3h627285fw0.mysql.rds.aliyuncs.com:3306/planb_product_db?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    #url: jdbc:mysql://rm-3nst8g3h627285fw0.mysql.rds.aliyuncs.com:3306/planb_release_image?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    #url: jdbc:mysql://rm-3nst8g3h627285fw0ho.mysql.rds.aliyuncs.com:3306/planb_test?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    #url: jdbc:mysql://127.0.0.1:3310/planb_release_image?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    #    url: jdbc:mysql://127.0.0.1:3310/planb_test?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    #    username: planb_product
+    #    password: r!foe$giLIOYI8&C
+    #    url: jdbc:mysql://127.0.0.1:3310/planb_dev?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://xbet-dev.c0ihwn6tazso.ap-east-1.rds.amazonaws.com:3306/planb_dev?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: xbetdev
+    password: qRlSaAfjZGCpWq1P
+    #    url: jdbc:mysql://localhost:3306/plan_test?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    #    username: root
+    #    password: MyNewPass
+    sql-script-encoding: utf-8
+    platform: mysql
+    continue-on-error: false
+    separator: //
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    max-active: 100
+    max-idle: 10
+    min-idle: 10
+    initial-size: 15
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size : 15
+      auto-commit: true
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 10
+        min-idle: 0
+    timeout: 1000
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+#    serialization: false
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+
+server:
+  port: 9399
+  tomcat:
+    uri-encoding: utf-8
+netty:
+  port: 9003
+
+
+
+#logging:
+#  config: classpath:logback.xml
+cloud:
+  consul:
+    host: localhost
+    port: 8500
+    discovery:
+      #        healthCheckPath: /health
+      healthCheckInterval: 15s
+      instanceId: ${spring.cloud.consul.discovery.service-name}-${spring.profiles.active}-${spring.cloud.consul.discovery.ip-address}-${random.value}
+      ip-address: ${HOST_ADDRESS:localhost}
+      service-name: frontback-service
+      register: true
+      heartbeat: ##配置是否进行health check，以及频率
+        enabled: true
+        ttlValue: 10
+      enabled: true
+
+
+
+application:
+  profile: D:\activitypic\
+  #  profile: /tmp/excelTemp/
+  sessionExpire: 0.5
+
+s3:
+  accessKey: AKIAZA7GBLE65ELDZI76
+  secretKey: 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
+  bucketName: dev-xbet-hk
+
+
+
+
+

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: frontback
+  profiles:
+    active: mytest
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+
+
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+
+    <context id="context1" targetRuntime="MyBatis3">
+        <commentGenerator type="com.splan.bplan.utils.MyCommentGenerator">
+        </commentGenerator>
+
+        <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
+        <!--<plugin type="com.splan.bplan.utils.LombokPlugin" >-->
+            <!--&lt;!&ndash;<property name="hasLombok" value="true"/>&ndash;&gt;-->
+        <!--</plugin>-->
+
+
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.111.19.62:3306/planc" userId="devuser" password="Devuser1!">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.splan.base.bean"
+                            targetProject="/Users/chenzhengwei/IdeaProjects/plan/bplan/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+            <property name="rootClass" value="com.splan.base.bean.BaseBean" />
+        </javaModelGenerator>
+
+        <!--<sqlMapGenerator targetPackage="mapper"-->
+                         <!--targetProject="src/main/resources">-->
+            <!--<property name="enableSubPackages" value="false" />-->
+        <!--</sqlMapGenerator>-->
+
+        <javaClientGenerator targetPackage="com.splan.bplan.mappers"
+                             targetProject="/Users/chenzhengwei/IdeaProjects/plan/bplan/src/main/java"
+                             type="ANNOTATEDMAPPER">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!--生成对应表及类名-->
+        <table tableName="proxy_log" domainObjectName="ProxyLog"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <ignoreColumn column="create_time" delimitedColumnName="" />
+            <ignoreColumn column="update_time" delimitedColumnName="" />
+            <!--<ignoreColumn column="id" delimitedColumnName="" />-->
+
+        </table>
+
+    </context>
+</generatorConfiguration>

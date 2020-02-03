@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: apigateway
+  profiles:
+    active: dev
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false

@@ -1,0 +1,37 @@
+auth:
+  permitall:
+    -
+      pattern: /login/**
+#    -
+#      pattern: /openapi/**
+    -
+      pattern: /fallbackcontroller
+    -
+      pattern: /web/**
+
+gateway:
+  limit:
+    redis-rate: # token
+      replenish-rate: 10
+      burst-capacity: 3000
+    throttle: # leaky
+      capacity: 10000
+      refill-tokens: 50
+      refill-period: 5
+
+
+security:
+  oauth2:
+    client:
+      accessTokenUri: /oauth/token
+#      clientId: gateway
+#      clientSecret: gateway
+    resource:
+      userInfoUri: /user
+      token-info-uri: /oauth/check_token
+spring:
+  profiles:
+    active: rsim
+---
+
+hystrix.command.fallbackcmd.execution.isolation.thread.timeoutInMilliseconds: 8000

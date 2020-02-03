@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: back-gateway
+  profiles:
+    active: test
+

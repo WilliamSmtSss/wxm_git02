@@ -1,0 +1,79 @@
+server:
+  port: 9309
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: dalaoyang-1111
+          uri: lb://backoauth2
+          predicates:
+            - Path=/oauth/**
+        - id: dalaoyang-1112
+          uri: lb://back
+          predicates:
+            - Path=/back/**
+        - id: dalaoyang-1113
+          uri: lb://backforbusiness
+          predicates:
+              - Path=/front/**
+          filters:
+#            - StripPrefix=1 # 去掉路径的 n 个前缀
+#            - Auth=true # 输入过滤器类的名称前缀
+             - AddRequestHeader=NAME, yinjihuan
+        - id: dalaoyang-1115
+          uri: lb://frontback
+          predicates:
+              - Path=/frontBack/**
+              - Before=2020-05-01T00:00:00+08:00[Asia/Shanghai]
+          filters:
+            - name: Hystrix
+              args:
+                name: default
+                fallbackUri: 'forward:/defaultfallback'
+        - id: xujin_route
+          uri: http://example.org/
+          predicates:
+              - Path=/xujin
+          filters:
+#            - StripPrefix=1 # 去掉路径的 n 个前缀
+#            - AddRequestHeader=NAME, yinjihuan
+              - Auth=true # 输入过滤器类的名称前缀
+# hystrix 信号量隔离，3秒后自动超时
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 3000
+  shareSecurityContext: true
+
+
+  consul:
+    host: localhost
+    port: 8500
+    discovery:
+      #        healthCheckPath: /health
+      healthCheckInterval: 15s
+      instanceId: ${spring.cloud.consul.discovery.service-name}-${spring.profiles.active}-${spring.cloud.consul.discovery.ip-address}-${random.value}
+      ip-address: ${HOST_ADDRESS:localhost}
+      service-name: back-gateway
+      register: true
+      heartbeat: ##配置是否进行health check，以及频率
+        enabled: true
+        ttlValue: 10
+      enabled: true
+
+#---------------------OAuth2---------------------
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:${server.port}/oauth/token
+      user-authorization-uri: http://localhost:${server.port}/oauth/authorize
+      client-id: client_1
+      client-secret: 123456
+    resource:
+      user-info-uri:  http://localhost:${server.port}/back/**
+      prefer-token-info: false

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: backforbusiness
+  profiles:
+    active: mytest
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+
+
+
